@@ -6,7 +6,7 @@
 
 	<persistence-unit name="taskmanager" transaction-type="JTA">
 
-		<jta-data-source>java:/taskmanagerDS</jta-data-source>
+		<jta-data-source>java:jboss/datasources/MySQLDS</jta-data-source>
 
 		<properties>
 			<property name="hibernate.hbm2ddl.auto" value="update" />
