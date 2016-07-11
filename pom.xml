@@ -6,7 +6,6 @@
 	<groupId>br.com.lifeundercontroll</groupId>
 	<artifactId>taskmanager</artifactId>
 	<packaging>war</packaging>
-	<version>1.0</version>
 	<name>Gerenciador de tarefas rotinais</name>
 
 	<properties>
@@ -16,10 +15,24 @@
 	</properties>
 
 	<dependencies>
+
 		<dependency>
 			<groupId>javax</groupId>
 			<artifactId>javaee-api</artifactId>
 			<version>7.0</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.sun.faces</groupId>
+			<artifactId>jsf-api</artifactId>
+			<version>2.2.13</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.faces</groupId>
+			<artifactId>jsf-impl</artifactId>
+			<version>2.2.13</version>
 			<scope>provided</scope>
 		</dependency>
 
@@ -39,13 +52,6 @@
 
 	<profiles>
 		<profile>
-			<!-- When built in OpenShift the 'openshift' profile will be used when 
-				invoking mvn. -->
-			<!-- Use this profile for any OpenShift specific customization your app 
-				will need. -->
-			<!-- By default that is to put the resulting archive into the 'deployments' 
-				folder. -->
-			<!-- http://maven.apache.org/guides/mini/guide-building-for-different-environments.html -->
 			<id>openshift</id>
 			<build>
 				<finalName>taskmanager</finalName>
@@ -74,4 +80,5 @@
 		</repository>
 	</repositories>
 
+	<version>0.1.0</version>
 </project>
