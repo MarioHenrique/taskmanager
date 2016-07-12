@@ -5,42 +5,52 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-<head />
+
 <h:body>
 	<ui:composition template="_template.xhtml">
 
 		<ui:define name="cabecalho">Cadastro</ui:define>
 
 		<ui:define name="conteudo">
-			<h:form>
-				<p:panelGrid columns="2">
-					<p:outputLabel value="Nome: " for="nome" />
-					<p:inputText id="nome" value="#{cadastroBean.novoUsuario.nome}"
-						required="true" requiredMessage="O nome é obrigatório"/>
+			<h:form id="usuarioForm">
+				<p:fieldset legend="Dados do usuario">
+					<p:panelGrid columns="2">
+						<p:outputLabel value="Nome: " for="nome" />
+						<p:inputText id="nome" value="#{cadastroBean.novoUsuario.nome}"
+							required="true" requiredMessage="O nome é obrigatório"
+							maxlength="50" />
 
-					<p:outputLabel value="Email: " for="email" />
-					<p:inputText id="email" value="#{cadastroBean.novoUsuario.email}"
-						required="true" requiredMessage="O email é obrigatório"/>
+						<p:outputLabel value="Email: " for="email" />
+						<p:inputText id="email" value="#{cadastroBean.novoUsuario.email}"
+							required="true" requiredMessage="O email é obrigatório"
+							maxlength="50" validatorMessage="Email Invalido">
+							<f:validateRegex pattern=".+@.+" />
+						</p:inputText>
 
-					<p:outputLabel value="Senha: " for="senha" />
-					<p:password id="senha" value="#{cadastroBean.novoUsuario.senha}" required="true" requiredMessage="Senha é obrigatório"/>
+						<p:outputLabel value="Senha: " for="senha" />
+						<p:password id="senha" value="#{cadastroBean.novoUsuario.senha}"
+							required="true" requiredMessage="Senha é obrigatório"
+							maxlength="30" />
 
 
-					<p:outputLabel value="Confirmar Senha: " for="csenha" />
-					<p:password id="csenha"
-						value="#{cadastroBean.novoUsuario.confirmaSenha}" required="true" requiredMessage="Confirmação da senha é obrigatório"/>
+						<p:outputLabel value="Confirmar Senha: " for="csenha" />
+						<p:password id="csenha"
+							value="#{cadastroBean.novoUsuario.confirmaSenha}" required="true"
+							requiredMessage="Confirmação da senha é obrigatório"
+							maxlength="30" />
 
-					<h:outputLabel for="alerta" value="Alerta às : " />
-					<p:spinner id="alerta" min="0" max="23" suffix=" Hrs"
-						value="#{cadastroBean.novoUsuario.horario}" required="true" requiredMessage="Alerta é obrigatório"/>
+						<h:outputLabel for="alerta" value="Alerta às : " />
+						<p:spinner id="alerta" min="0" max="23" suffix=" Hrs"
+							value="#{cadastroBean.novoUsuario.horario}" required="true"
+							requiredMessage="Alerta é obrigatório" />
 
-					<p:commandButton value="Voltar"
-						action="login.xhtml?faces-redirect=true" immediate="true" />
-					<p:commandButton value="Cadastrar"
-						action="#{cadastroBean.cadastrar}" process="@form"
-						update="messages" />
-
-				</p:panelGrid>
+						<p:commandButton value="Voltar"
+							action="login.xhtml?faces-redirect=true" immediate="true" />
+						<p:commandButton value="Cadastrar"
+							action="#{cadastroBean.cadastrar}" process="@form"
+							update="messages" />
+					</p:panelGrid>
+				</p:fieldset>
 			</h:form>
 		</ui:define>
 
