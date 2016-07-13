@@ -12,7 +12,7 @@ import javax.inject.Named;
 
 import org.jboss.logging.Logger;
 
-import br.com.taskmanager.dto.NovoUsuario;
+import br.com.taskmanager.entity.Usuario;
 import br.com.taskmanager.exception.UsuarioExistenteException;
 import br.com.taskmanager.service.UsuarioService;
 
@@ -31,17 +31,17 @@ public class CadastroBean implements Serializable {
 	UsuarioService usuarioService;
 
 	@Inject
-	NovoUsuario novoUsuario;
+	private Usuario usuario;
 
 	public String cadastrar() {
-		if (!novoUsuario.getSenha().equals(novoUsuario.getConfirmaSenha())) {
+		if (!getUsuario().getSenha().equals(getUsuario().getConfirmaSenha())) {
 			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Senhas",
 					"A senha e a confirmação precisa ser igual"));
 			return null;
 		}
 
 		try {
-			usuarioService.criarUsuario(novoUsuario);
+			usuarioService.criarUsuario(getUsuario());
 			context.getExternalContext().getFlash().setKeepMessages(true);
 			context.addMessage(null, new FacesMessage("Usuario criado com sucesso"));
 
@@ -54,18 +54,18 @@ public class CadastroBean implements Serializable {
 		} catch (UsuarioExistenteException e) {
 			context.addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario", "Email já cadastrado no sistema"));
-			LOGGER.info(e.getMessage()+", Email = "+novoUsuario.getEmail());
+			LOGGER.info(e.getMessage() + ", Email = " + getUsuario().getEmail());
 		}
 
 		return null;
 	}
 
-	public NovoUsuario getNovoUsuario() {
-		return novoUsuario;
+	public Usuario getUsuario() {
+		return usuario;
 	}
 
-	public void setNovoUsuario(NovoUsuario novoUsuario) {
-		this.novoUsuario = novoUsuario;
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 }

@@ -18,13 +18,14 @@
 				<h:form>
 					<p:panelGrid columns="2">
 						<p:outputLabel value="Email:" />
-						<p:inputText />
+						<p:inputText value="#{loginBean.usuario.email}" placeholder="Email" required="true" requiredMessage="Email é obrigatorio"/>
 
 						<p:outputLabel value="Senha: " />
-						<p:password />
+						<p:password value="#{loginBean.usuario.senha}" placeholder="Senha" required="true" requiredMessage="Senha é obrigatoria"/>
+						
 						<p:commandButton value="Criar Conta"
-							action="cadastro.xhtml?faces-redirect=true" />
-						<p:commandButton value="Login" />
+							action="cadastroUsuario.xhtml?faces-redirect=true" />
+						<p:commandButton value="Login" process="@form" update="@all" action="#{loginBean.login}"/>
 					</p:panelGrid>
 				</h:form>
 			</p:fieldset>

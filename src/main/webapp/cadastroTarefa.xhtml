@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<h:body>
+
+	<ui:composition template="_template.xhtml">
+
+		<f:metadata>
+			<f:viewParam name="tarefaId" value="#{cadastroTarefaBean.id}" />
+			<f:viewAction action="#{cadastroTarefaBean.carregarTarefaPeloId}"
+				if="#{param.tarefaId != null}" />
+		</f:metadata>
+
+		<ui:define name="cabecalho">Cadastro de tarefas</ui:define>
+
+		<ui:define name="conteudo">
+			<h:form>
+				<p:fieldset legend="Dados da tarefa">
+					<p:panelGrid columns="2">
+						<p:outputLabel value="Nome: " />
+						<p:inputText value="#{cadastroTarefaBean.tarefa.nome}"
+							placeholder="Nome da tarefa" maxlength="30" required="true"
+							requiredMessage="Nome é obrigatorio" />
+
+						<p:outputLabel value="Descrição: " />
+						<p:inputTextarea value="#{cadastroTarefaBean.tarefa.descricao}"
+							placeholder="Descrição da tarefa" maxlength="250" />
+
+						<p:outputLabel value="Duração: " />
+						<p:inputNumber value="#{cadastroTarefaBean.tarefa.duracao}"
+							decimalPlaces="2" minValue="0" maxValue="24" placeholder="Horas"
+							required="true" requiredMessage="A duração é obrigatoria" />
+
+					</p:panelGrid>
+					<p:panelGrid columns="3">
+						<p:outputLabel value="Dias da semana: " />
+						<p:selectOneMenu value="#{cadastroTarefaBean.diaSemana}"
+							id="diaSelecionado">
+							<f:selectItem itemLabel="Domingo" itemValue="DOMINGO" />
+							<f:selectItem itemLabel="Segunda" itemValue="SEGUNDA" />
+							<f:selectItem itemLabel="Terça" itemValue="TERCA" />
+							<f:selectItem itemLabel="Quarta" itemValue="QUARTA" />
+							<f:selectItem itemLabel="Quinta" itemValue="QUINTA" />
+							<f:selectItem itemLabel="Sexta" itemValue="SEXTA" />
+							<f:selectItem itemLabel="Sábado" itemValue="SABADO" />
+						</p:selectOneMenu>
+						<p:commandButton value="Adicionar"
+							action="#{cadastroTarefaBean.adicionarDia}"
+							process="@this diaSelecionado" update="tabelaDiaSemana" />
+					</p:panelGrid>
+
+					<p:dataList value="#{cadastroTarefaBean.tarefa.diasDaSemana}"
+						var="dia" id="tabelaDiaSemana" type="ordered"
+						emptyMessage="Sem dias cadastrados">
+						<f:facet name="header">Dias adicionados</f:facet>
+						<p:commandButton icon="fa fa-fw fa-close"
+							action="#{cadastroTarefaBean.removerDia(dia)}" process="@this"
+							update="tabelaDiaSemana" /> #{dia}
+					</p:dataList>
+
+					<p:commandButton value="Salvar"
+						action="#{cadastroTarefaBean.salvarTarefa}" process="@form"
+						update="@form messages" />
+
+				</p:fieldset>
+			</h:form>
+		</ui:define>
+
+	</ui:composition>
+
+</h:body>
+
+</html>
