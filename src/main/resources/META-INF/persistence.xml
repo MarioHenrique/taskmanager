@@ -8,7 +8,8 @@
 
 		<jta-data-source>java:jboss/datasources/MySQLDS</jta-data-source>
 
-		<class>br.com.taskmanager.entity.UsuarioEntity</class>
+		<class>br.com.taskmanager.entity.Usuario</class>
+		<class>br.com.taskmanager.entity.Tarefa</class>
 
 		<properties>
 			<property name="hibernate.hbm2ddl.auto" value="update" />

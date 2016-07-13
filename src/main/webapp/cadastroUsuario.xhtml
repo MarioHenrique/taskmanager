@@ -16,32 +16,32 @@
 				<p:fieldset legend="Dados do usuario">
 					<p:panelGrid columns="2">
 						<p:outputLabel value="Nome: " for="nome" />
-						<p:inputText id="nome" value="#{cadastroBean.novoUsuario.nome}"
+						<p:inputText id="nome" value="#{cadastroBean.usuario.nome}"
 							required="true" requiredMessage="O nome é obrigatório"
 							maxlength="50" />
 
 						<p:outputLabel value="Email: " for="email" />
-						<p:inputText id="email" value="#{cadastroBean.novoUsuario.email}"
+						<p:inputText id="email" value="#{cadastroBean.usuario.email}"
 							required="true" requiredMessage="O email é obrigatório"
 							maxlength="50" validatorMessage="Email Invalido">
 							<f:validateRegex pattern=".+@.+" />
 						</p:inputText>
 
 						<p:outputLabel value="Senha: " for="senha" />
-						<p:password id="senha" value="#{cadastroBean.novoUsuario.senha}"
+						<p:password id="senha" value="#{cadastroBean.usuario.senha}"
 							required="true" requiredMessage="Senha é obrigatório"
 							maxlength="30" />
 
 
 						<p:outputLabel value="Confirmar Senha: " for="csenha" />
 						<p:password id="csenha"
-							value="#{cadastroBean.novoUsuario.confirmaSenha}" required="true"
+							value="#{cadastroBean.usuario.confirmaSenha}" required="true"
 							requiredMessage="Confirmação da senha é obrigatório"
 							maxlength="30" />
 
 						<h:outputLabel for="alerta" value="Alerta às : " />
 						<p:spinner id="alerta" min="0" max="23" suffix=" Hrs"
-							value="#{cadastroBean.novoUsuario.horario}" required="true"
+							value="#{cadastroBean.usuario.horario}" required="true"
 							requiredMessage="Alerta é obrigatório" />
 
 						<p:commandButton value="Voltar"

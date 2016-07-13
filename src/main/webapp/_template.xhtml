@@ -8,17 +8,25 @@
 <h:head />
 
 <h:body>
-	
-	<p:growl id="messages" showDetail="true" showSummary="false" autoUpdate="true"/>
+
+	<p:growl id="messages" showDetail="true" showSummary="false" autoUpdate="true" />
 
 	<div id="cabecalho">
 		<p:panelGrid columns="1">
-			<h:graphicImage library="img" name="logo.png"/>
+			<h:graphicImage library="img" name="logo.png" />
 			<ui:insert name="cabecalho" />
 		</p:panelGrid>
-		<br/>
+		<br />
 	</div>
-
+	<h:form>
+		<p:menuButton value="MENU" rendered="#{usuarioLogado != null}">
+			<p:menuitem action="home.xhtml?faces-redirect=true" value="Tarefas" icon="fa fa-tasks" />
+			<p:menuitem action="cadastroTarefa.xhtml?faces-redirect=true" value="Criar tarefa" icon="ui-icon-plus" />
+			<p:separator/>
+			<p:menuitem action="#{homeBean.signOut}" value="Logout" icon="fa fa-fw fa-sign-out"/>
+		</p:menuButton>
+	</h:form>
+	<br/>
 	<div id="conteudo">
 		<ui:insert name="conteudo" />
 
