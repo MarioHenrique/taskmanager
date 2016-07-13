@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<h:head />
+
+<h:body>
+	<ui:composition template="_template.xhtml">
+		<ui:define name="cabecalho">Home</ui:define>
+
+		<ui:define name="conteudo">
+			<h:form id="formPesquisa">
+				<p:fieldset legend="Filtro">
+					<p:panelGrid columns="2">
+						<p:outputLabel value="Dias da semana: "/>
+						<p:selectOneMenu value="#{homeBean.filtro}">
+							<f:selectItem itemLabel="Todos" itemValue="TODOS"/>
+							<f:selectItem itemLabel="Domingo" itemValue="DOMINGO"/>
+							<f:selectItem itemLabel="Segunda" itemValue="SEGUNDA"/>
+							<f:selectItem itemLabel="Terça" itemValue="TERCA"/>
+							<f:selectItem itemLabel="Quarta" itemValue="QUARTA"/>
+							<f:selectItem itemLabel="Quinta" itemValue="QUINTA"/>
+							<f:selectItem itemLabel="Sexta" itemValue="SEXTA"/>
+							<f:selectItem itemLabel="Sabado" itemValue="SABADO"/>
+							<p:ajax event="change" update="formTarefas"/>
+						</p:selectOneMenu>
+					</p:panelGrid>
+				</p:fieldset>
+			</h:form>
+			<br/>
+			<h:form id="formTarefas">
+				<p:fieldset legend="Tarefas">
+					<p:dataTable value="#{homeBean.listaTarefas}" var="tarefa" id="listaDeTarefas" emptyMessage="Sem tarefas registradas">
+						<f:facet name="header">Lista de tarefas</f:facet>
+						<p:column headerText="Nome">
+							<p:outputLabel value="#{tarefa.nome}" />
+						</p:column>
+						<p:column headerText="Duração">
+							<p:outputLabel value="#{tarefa.duracao} horas" />
+						</p:column>
+						<p:column headerText="Dias da semana">
+							<p:outputLabel value="#{tarefa.diasDaSemana}" />
+						</p:column>
+						<p:column headerText="Alterar" style="width:50px">
+							<p:commandButton icon="fa fa-fw fa-edit" action="#{homeBean.formEditar(tarefa.id)}" process="@this"/>
+						</p:column>
+						<p:column headerText="Excluir" style="width:50px">
+							<p:commandButton icon="ui-icon-closethick"
+								action="#{homeBean.removerTarefa(tarefa)}" process="@this"
+								update="listaDeTarefas" />
+						</p:column>
+					</p:dataTable>
+				</p:fieldset>
+				<br/>
+				<p:fieldset legend="Estatisticas">
+					<p:panelGrid columns="2">
+						<p:outputLabel value="Horas de estudo"/>
+						<p:outputLabel value="#{homeBean.horasDeEstudo} horas"/>
+					</p:panelGrid>
+				</p:fieldset>
+			</h:form>
+		</ui:define>
+
+	</ui:composition>
+</h:body>
+
+
+</html>
