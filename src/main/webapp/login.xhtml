@@ -24,7 +24,7 @@
 						<p:password value="#{loginBean.usuario.senha}" placeholder="Senha" required="true" requiredMessage="Senha é obrigatoria"/>
 						
 						<p:commandButton value="Criar Conta"
-							action="cadastroUsuario.xhtml?faces-redirect=true" />
+							action="cadastroUsuario.xhtml?faces-redirect=true" immediate="true"/>
 						<p:commandButton value="Login" process="@form" update="@all" action="#{loginBean.login}"/>
 					</p:panelGrid>
 				</h:form>
