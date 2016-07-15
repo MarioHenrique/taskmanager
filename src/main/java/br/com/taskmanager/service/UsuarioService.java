@@ -13,7 +13,7 @@ import javax.inject.Inject;
 import br.com.taskmanager.dao.UsuarioDao;
 import br.com.taskmanager.entity.Usuario;
 import br.com.taskmanager.exception.UsuarioExistenteException;
-import br.com.taskmanager.util.PasswordEncode;
+import br.com.taskmanager.util.PasswordEncodeUtil;
 
 @Stateless
 public class UsuarioService implements Serializable {
@@ -33,12 +33,12 @@ public class UsuarioService implements Serializable {
 		if (emailCadastrado) {
 			throw new UsuarioExistenteException("Email já cadastrado no sistema");
 		}
-		usuario.setSenha(new PasswordEncode().encode(usuario.getSenha()));
+		usuario.setSenha(new PasswordEncodeUtil().encode(usuario.getSenha()));
 		usuarioDao.criarUsuario(usuario);
 	}
 
 	public boolean login(Usuario usuario) throws NoSuchAlgorithmException, UnsupportedEncodingException {
-		usuario.setSenha(new PasswordEncode().encode(usuario.getSenha()));
+		usuario.setSenha(new PasswordEncodeUtil().encode(usuario.getSenha()));
 		Usuario usuarioLogado = usuarioDao.procuraUsuarioPorEmailESenha(usuario);
 		if (usuarioLogado == null) {
 			return false;

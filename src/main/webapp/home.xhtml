@@ -13,54 +13,78 @@
 		<ui:define name="cabecalho">Home</ui:define>
 
 		<ui:define name="conteudo">
-			<h:form id="formPesquisa">
-				<p:fieldset legend="Filtro">
-					<p:panelGrid columns="2">
-						<p:outputLabel value="Dias da semana: "/>
-						<p:selectOneMenu value="#{homeBean.filtro}">
-							<f:selectItem itemLabel="Todos" itemValue="TODOS"/>
-							<f:selectItem itemLabel="Domingo" itemValue="DOMINGO"/>
-							<f:selectItem itemLabel="Segunda" itemValue="SEGUNDA"/>
-							<f:selectItem itemLabel="Terça" itemValue="TERCA"/>
-							<f:selectItem itemLabel="Quarta" itemValue="QUARTA"/>
-							<f:selectItem itemLabel="Quinta" itemValue="QUINTA"/>
-							<f:selectItem itemLabel="Sexta" itemValue="SEXTA"/>
-							<f:selectItem itemLabel="Sabado" itemValue="SABADO"/>
-							<p:ajax event="change" update="formTarefas"/>
-						</p:selectOneMenu>
-					</p:panelGrid>
-				</p:fieldset>
-			</h:form>
-			<br/>
 			<h:form id="formTarefas">
 				<p:fieldset legend="Tarefas">
-					<p:dataTable value="#{homeBean.listaTarefas}" var="tarefa" id="listaDeTarefas" emptyMessage="Sem tarefas registradas">
-						<f:facet name="header">Lista de tarefas</f:facet>
+					<p:tabMenu activeIndex="#{homeBean.indexDia}">
+						<p:menuitem value="Todos" action="#{homeBean.setFiltro('TODOS',0)}" update="@form"/>
+						<p:menuitem value="Segunda" action="#{homeBean.setFiltro('SEGUNDA',1)}" update="@form"/>
+						<p:menuitem value="Terça" action="#{homeBean.setFiltro('TERCA',2)}" update="@form"/>
+						<p:menuitem value="Quarta" action="#{homeBean.setFiltro('QUARTA',3)}" update="@form"/>
+						<p:menuitem value="Quinta" action="#{homeBean.setFiltro('QUINTA',4)}" update="@form"/>
+						<p:menuitem value="Sexta" action="#{homeBean.setFiltro('SEXTA',5)}" update="@form"/>
+						<p:menuitem value="Sabado" action="#{homeBean.setFiltro('SABADO',6)}" update="@form"/>
+						<p:menuitem value="Domingo" action="#{homeBean.setFiltro('DOMINGO',7)}" update="@form"/>
+					</p:tabMenu>
+					<p:dataTable value="#{homeBean.listaTarefas}" var="tarefa"
+						id="listaDeTarefas" emptyMessage="Sem tarefas registradas">
 						<p:column headerText="Nome">
 							<p:outputLabel value="#{tarefa.nome}" />
 						</p:column>
-						<p:column headerText="Duração">
+						<p:column headerText="Duração" style="width:100px">
 							<p:outputLabel value="#{tarefa.duracao} horas" />
 						</p:column>
 						<p:column headerText="Dias da semana">
 							<p:outputLabel value="#{tarefa.diasDaSemana}" />
 						</p:column>
+						<p:column headerText="Ver" style="width:50px">
+							<p:commandButton icon="fa fa-fw fa-search"
+								action="#{homeBean.setarTarefa(tarefa)}" process="@this"
+								oncomplete="PF('dlg').show();"
+								update="formTarefas:detalhesTarefa" />
+						</p:column>
 						<p:column headerText="Alterar" style="width:50px">
-							<p:commandButton icon="fa fa-fw fa-edit" action="#{homeBean.formEditar(tarefa.id)}" process="@this"/>
+							<p:commandButton icon="fa fa-fw fa-edit"
+								action="#{homeBean.formEditar(tarefa.id)}" process="@this" />
 						</p:column>
 						<p:column headerText="Excluir" style="width:50px">
 							<p:commandButton icon="ui-icon-closethick"
 								action="#{homeBean.removerTarefa(tarefa)}" process="@this"
-								update="listaDeTarefas" />
+								update="formTarefas:listaDeTarefas formDetalhes" />
 						</p:column>
 					</p:dataTable>
+					<p:commandButton value="Nova tarefa"
+						action="cadastroTarefa.xhtml?faces-redirect=true" />
 				</p:fieldset>
-				<br/>
-				<p:fieldset legend="Estatisticas">
+				<br />
+
+				<p:dialog header="Detalhe da tarefa" widgetVar="dlg" modal="true"
+					resizable="true" id="detalhesTarefa">
 					<p:panelGrid columns="2">
-						<p:outputLabel value="Horas de estudo"/>
-						<p:outputLabel value="#{homeBean.horasDeEstudo} horas"/>
+						<p:outputLabel value="Nome: " />
+						<p:outputLabel value="#{homeBean.tarefaDetalhes.nome}" />
+						<p:outputLabel value="Descricao" />
+						<p:inputTextarea disabled="true"
+							value="#{homeBean.tarefaDetalhes.descricao}" />
+						<p:outputLabel value="Duração: " />
+						<p:outputLabel value="#{homeBean.tarefaDetalhes.duracao} horas" />
+						<p:outputLabel value="Dias: " />
+						<p:outputLabel value="#{homeBean.tarefaDetalhes.diasDaSemana}" />
 					</p:panelGrid>
+				</p:dialog>
+			</h:form>
+
+			<h:form id="formDetalhes">
+				<p:fieldset legend="Estatísticas">
+					<p:panelGrid columns="2">
+						<p:outputLabel value="Horas semanais" />
+						<p:outputLabel value="#{homeBean.horasTotais} horas" />
+					</p:panelGrid>
+					<p:repeat value="#{homeBean.diaHora}" var="diaHora">
+						<p:panelGrid columns="2">
+							<h:outputText value="#{diaHora.dia}: " />
+							<h:outputText value="#{diaHora.horas} horas" />
+						</p:panelGrid>
+					</p:repeat>
 				</p:fieldset>
 			</h:form>
 		</ui:define>

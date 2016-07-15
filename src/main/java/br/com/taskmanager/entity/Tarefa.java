@@ -2,6 +2,7 @@ package br.com.taskmanager.entity;
 
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CollectionTable;
@@ -83,6 +84,10 @@ public class Tarefa implements Serializable{
 	public void adicionarDia(String dia) {
 		this.diasDaSemana.add(dia);
 	}
+	
+	public void adicionarDias(List<String> dias){
+		this.diasDaSemana.addAll(dias);
+	}
 
 	public void removerDia(String dia) {
 		this.diasDaSemana.remove(dia);
@@ -94,6 +99,10 @@ public class Tarefa implements Serializable{
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+	public void removerTodosOsDias() {
+		diasDaSemana.clear();
 	}
 	
 }

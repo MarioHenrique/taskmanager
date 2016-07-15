@@ -20,7 +20,7 @@
 	</div>
 	<h:form>
 		<p:menuButton value="MENU" rendered="#{usuarioLogado != null}">
-			<p:menuitem action="home.xhtml?faces-redirect=true" value="Tarefas" icon="fa fa-tasks" />
+			<p:menuitem action="home.xhtml?faces-redirect=true" value="Home" icon="fa fa-fw fa-tasks" />
 			<p:menuitem action="cadastroTarefa.xhtml?faces-redirect=true" value="Criar tarefa" icon="ui-icon-plus" />
 			<p:separator/>
 			<p:menuitem action="#{homeBean.signOut}" value="Logout" icon="fa fa-fw fa-sign-out"/>
