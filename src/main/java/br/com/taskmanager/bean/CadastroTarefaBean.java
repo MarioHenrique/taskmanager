@@ -2,6 +2,8 @@
 package br.com.taskmanager.bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -29,10 +31,10 @@ public class CadastroTarefaBean implements Serializable {
 	@Inject
 	private TarefaService tarefaService;
 
-	private String diaSemana;
+	private List<String> diaSemana = new ArrayList<>();
 
 	public void adicionarDia() {
-		getTarefa().adicionarDia(diaSemana);
+		getTarefa().adicionarDias(getDiaSemana());
 	}
 
 	public void removerDia(String dia) {
@@ -59,14 +61,10 @@ public class CadastroTarefaBean implements Serializable {
 		return "home.xhtml?faces-redirect=true";
 	}
 
-	public String getDiaSemana() {
-		return diaSemana;
+	public void removerTodasTarefas(){
+		getTarefa().removerTodosOsDias();
 	}
-
-	public void setDiaSemana(String diaSemana) {
-		this.diaSemana = diaSemana;
-	}
-
+	
 	public Tarefa getTarefa() {
 		return tarefa;
 	}
@@ -85,6 +83,14 @@ public class CadastroTarefaBean implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public List<String> getDiaSemana() {
+		return diaSemana;
+	}
+
+	public void setDiaSemana(List<String> diaSemana) {
+		this.diaSemana = diaSemana;
 	}
 
 }
