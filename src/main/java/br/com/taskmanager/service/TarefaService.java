@@ -10,8 +10,6 @@ import javax.ejb.TransactionAttributeType;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
-import org.jboss.ejb3.annotation.TransactionTimeout;
-
 import br.com.taskmanager.dao.TarefaDao;
 import br.com.taskmanager.entity.Tarefa;
 import br.com.taskmanager.entity.Usuario;
