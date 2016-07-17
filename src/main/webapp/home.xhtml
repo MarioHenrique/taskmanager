@@ -17,13 +17,13 @@
 				<p:fieldset legend="Tarefas">
 					<p:tabMenu activeIndex="#{homeBean.indexDia}">
 						<p:menuitem value="Todos" action="#{homeBean.setFiltro('TODOS',0)}" update="@form"/>
+						<p:menuitem value="Domingo" action="#{homeBean.setFiltro('DOMINGO',7)}" update="@form"/>
 						<p:menuitem value="Segunda" action="#{homeBean.setFiltro('SEGUNDA',1)}" update="@form"/>
 						<p:menuitem value="Terça" action="#{homeBean.setFiltro('TERCA',2)}" update="@form"/>
 						<p:menuitem value="Quarta" action="#{homeBean.setFiltro('QUARTA',3)}" update="@form"/>
 						<p:menuitem value="Quinta" action="#{homeBean.setFiltro('QUINTA',4)}" update="@form"/>
 						<p:menuitem value="Sexta" action="#{homeBean.setFiltro('SEXTA',5)}" update="@form"/>
 						<p:menuitem value="Sabado" action="#{homeBean.setFiltro('SABADO',6)}" update="@form"/>
-						<p:menuitem value="Domingo" action="#{homeBean.setFiltro('DOMINGO',7)}" update="@form"/>
 					</p:tabMenu>
 					<p:dataTable value="#{homeBean.listaTarefas}" var="tarefa"
 						id="listaDeTarefas" emptyMessage="Sem tarefas registradas">

@@ -44,7 +44,7 @@ public class HomeBean implements Serializable {
 
 	@PostConstruct
 	public void iniciaDiaDaSemana() {
-		int dia = Calendar.getInstance().get(Calendar.DAY_OF_WEEK) - 1;
+		int dia = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
 		indexDia = dia;
 		filtro = DiasDaSemanaUtil.getDiasDaSemana().get(dia - 1).getValue();
 	}
